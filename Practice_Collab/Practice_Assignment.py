@@ -23,3 +23,6 @@ def status_changes(resources, events, choice):
     Side Effects:
         Update the status value in the resources dictionary. 
     """
+
+def determine_outcome(resources. choice, event):
+    """ Determine the final ending 
