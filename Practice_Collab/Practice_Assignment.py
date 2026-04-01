@@ -45,3 +45,24 @@ def determine_outcome(resources, choice, event)
             resources and choices. Example: "You graduated but are deeply in debt
             and extremely stressed."
     """
+
+
+def check_game_over(resources):
+    """
+    Checks if the game should end based on the player's current status levels.
+
+    The game ends if an important status, like GPA, health, money,
+    or emotions, falls below a required minimum value. This function
+    helps determine whether the player can continue playing or has lost.
+
+    Args:
+        resources (dict[str, int | float]): A dictionary containing the
+            player's current values for GPA, health, money, and emotions.
+
+    Returns:
+        bool: True if the game is over, False if the player can continue.
+        
+
+    Raises:
+        ValueError: If required resource values are missing.
+    """
