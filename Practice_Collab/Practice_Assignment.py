@@ -24,5 +24,24 @@ def status_changes(resources, events, choice):
         Update the status value in the resources dictionary. 
     """
 
-def determine_outcome(resources. choice, event):
-    """ Determine the final ending 
+def determine_outcome(resources, choice, event) 
+    """Determine the final ending text based on the user's final resource levels
+    amd the last major choice made.
+
+    Args:  
+        resources (dict[str,int, float]): The  final resource value of emotions, money, gpa, 
+        and health. 
+            - "emotions" (float or int): The final emotional value.
+            - "money" (float or int): The final amount of money.
+            - "gpa" (float or int): The final GPA.
+            - "health" (float or int): The final health status.
+        choice (str): The key decision made by the player at the end of the game
+            ("study for exams", "attend social event").
+        event (str): The context or event in which the final choice was made
+            ("exam week", "graduation party").
+
+    Returns:
+        str: A text ending description that reflects the combined outcome of
+            resources and choices. Example: "You graduated but are deeply in debt
+            and extremely stressed."
+    """
