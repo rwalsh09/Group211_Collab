@@ -26,22 +26,41 @@ def status_changes(resources, events, choice):
     events = [
         {
             "description": "You have a big exam tomorrow.",
-            "choices": [
+            "choices": {
                 1: {"health": - 10, "emotion": -8, "GPA": + 1.5},
                 2: {"health": + 5, "emotion": + 4, "GPA": - 1}
-            ]
+            }
         }
     ]
-    changes = event["choices"][choice]
-
-    for key in resources:
-        if key in changes:
-            resources[key] = resources[key] + changes[key]
-        
-        if resources[key] < 0:
-            resources[key] = 0
-        if resources[key] > 100:
-            resources[key] = 100
+    
+    resources = {
+        "health": 100,
+        "money": 100,
+        "GPA": 4.0,
+        "emotion": 100
+    }
+    for event in events:
+        if choice == event["choice"]:
+            
+            changes = event["choices"][choice]
+            
+            # change each status bar
+            for key in resources:
+                
+                # update status bar if event affects it
+                if key in changes:
+                    resources[key] = resources[key] + event["changes"][key]
+                if key == "GPA":
+                    if resources[key] < 0.0:
+                        resources[key] = 0.0
+                    if resources[key] > 4.0:
+                        resources[key] = 4.0
+                else:
+                
+                    if resources[key] < 0:
+                        resources[key] = 0
+                    if resources[key] > 100:
+                        resources[key] = 100
     return resources
 
 
