@@ -23,8 +23,30 @@ def status_changes(resources, events, choice):
     Side Effects:
         Update the status value in the resources dictionary. 
     """
+    events = [
+        {
+            "description": "You have a big exam tomorrow.",
+            "choices": [
+                1: {"health": - 10, "emotion": -8, "GPA": + 1.5},
+                2: {"health": + 5, "emotion": + 4, "GPA": - 1}
+            ]
+        }
+    ]
+    changes = event["choices"][choice]
 
-def determine_outcome(resources, choice, event) 
+    for key in resources:
+        if key in changes:
+            resources[key] = resources[key] + changes[key]
+        
+        if resources[key] < 0:
+            resources[key] = 0
+        if resources[key] > 100:
+            resources[key] = 100
+    return resources
+
+
+
+def determine_outcome(resources, choice, event): 
     """Determine the final ending text based on the user's final resource levels
     amd the last major choice made.
 
