@@ -86,7 +86,11 @@ def determine_outcome(resources, choice, event):
             resources and choices. Example: "You graduated but are deeply in debt
             and extremely stressed."
     """
-
+    # Base score from final resources
+    score = (resources["emotion"] * 0.2 +
+             resources["money"] * 0.3 +
+             resources["GPA"] * 10 +
+             resources["health"] * 0.2)
 
 def check_game_over(resources):
     """
