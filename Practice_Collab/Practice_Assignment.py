@@ -91,6 +91,32 @@ def determine_outcome(resources, choice, event):
              resources["money"] * 0.3 +
              resources["GPA"] * 10 +
              resources["health"] * 0.2)
+    # Effects of different choices 
+    streak = 0 
+    for i in range(1, len(choice_history)):
+        prev = choice_history[i-1]["choice_name"]
+        curr = choice_history[i]["choice_name"]
+        if prev == "study" and curr == "study":
+        streak += 5
+        if prev == "party" and curr == "study":
+            score -= 10
+    score += streak
+
+    # Round and print final score
+    rounded_score = int(round(score))
+    print(f"Your final score is: {rounded_score}")
+    
+    # Determine ending based on score
+    
+    if rounded_score >= 80:
+        return "You have graduated and ready for what comes moving forward."
+    elif rounded_score >= 60:
+        return "You have graduated but working hard for what comes next"
+    elif rounded_score >= 40:
+        return "You have barely graduated and with challenges moving forward"
+    else:
+        return "You did not graduate and rethinking what comes next"
+
 
 def check_game_over(resources):
     """
