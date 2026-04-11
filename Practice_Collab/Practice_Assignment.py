@@ -137,3 +137,48 @@ def check_game_over(resources):
     Raises:
         ValueError: If required resource values are missing.
     """
+
+def get_available_events(gpa, **resources):
+    """
+    Checks what possible events the player can do based on game performance.
+    Filters possible game events based on requirements.
+    
+    Args:
+        gpa (float): The current GPA (0.0 - 4.0).
+        **resources: Keyword arguments like money=100 or health=80.
+
+    Returns:
+        dict: A dictionary of eligible options and status 
+    """
+
+    events = {
+        "National Honors Society": {"min_gpa": 3.5, "cost": 0},
+        "Coding Club": {"min_gpa": 3.0, "cost": 20},
+        "Part-time Job": {"min_gpa": 2.0, "cost": 0},
+        "Rest at Home": {"min_gpa": 0.0, "cost": 0},
+        "Join the Football Team": {"min_gpa": 2.5, "cost": 50}
+    }
+
+    event_pool = {*events.keys()}
+
+    current_money = resources.get('money', 0)
+    
+    eligible_events = {
+        name for name in event_pool 
+        if gpa >= events[name]["min_gpa"] 
+        and current_money >= events[name]["cost"]
+    }
+    sorted_options = sorted(
+        eligible_events, 
+        key=lambda x: events[x]["min_gpa"], 
+        reverse=True
+    )
+
+top_choice = sorted_options[0] if sorted_options else "No events available"
+
+print(f"Outcome: {top_choice.upper()}")
+    
+return {
+        "player_options": sorted_options,
+        "gpa_status": "Dean's List" if gpa >= 3.5 else "Good"
+    }
