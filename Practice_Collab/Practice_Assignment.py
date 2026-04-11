@@ -30,7 +30,44 @@ def status_changes(resources, events, choice):
                 1: {"health": - 10, "emotion": -8, "GPA": + 1.5},
                 2: {"health": + 5, "emotion": + 4, "GPA": - 1}
             }
-        }
+        },
+        
+           { "description": "Part-Time Job",
+            "choices": {
+                1: {"money": +30, "health": -10, "emotion": -5},
+                2: {"money": 0, "health": +10, "emotion": +10} 
+            }
+        },
+            
+            {
+                "description": "Join the Coding Club",
+                "choices": {
+                    1: {"money": - 20, "emotion": +15, "GPA": +0.4},
+                    2: {"money": +15, "emotion": +10, "GPA": +.5, "health": -10}
+                }
+        },
+            {
+                "description": "National Honors Society",
+                "choices":{
+                    1: {"money": - 30, "emotion": +15, "GPA": +1},
+                    2: {"money": -30, "emotion": +10, "GPA": +1, "health": -18}
+                }
+        },
+            {
+                "description": "Rest at Home",
+                "choices":{
+                    1: {"money": - 15, "emotion": +25, "health": +20},
+                    2: {"money": 0, "emotion": +10, "health": -18}
+                }
+        },
+            {
+                "description": "Join the Football Team",
+                "choices":{
+                 1: {"money": - 40, "emotion": +8, "health": -25, "GPA": -1},
+                 2: {"emotion": +10, "health": +10, "emotion": -12, "GPA": +.05}
+            }
+            
+        }  
     ]
     
     resources = {
@@ -39,6 +76,7 @@ def status_changes(resources, events, choice):
         "GPA": 4.0,
         "emotion": 100
     }
+    
     for event in events:
         if choice == event["choice"]:
             
@@ -49,7 +87,7 @@ def status_changes(resources, events, choice):
                 
                 # update status bar if event affects it
                 if key in changes:
-                    resources[key] = resources[key] + event["changes"][key]
+                    resources[key] += changes[key]
                 if key == "GPA":
                     if resources[key] < 0.0:
                         resources[key] = 0.0
@@ -67,7 +105,7 @@ def status_changes(resources, events, choice):
 
 def determine_outcome(resources, choice, event): 
     """Determine the final ending text based on the user's final resource levels
-    amd the last major choice made.
+    and the last major choice made.
 
     Args:  
         resources (dict[str,int, float]): The  final resource value of emotions, money, gpa, 
@@ -97,7 +135,7 @@ def determine_outcome(resources, choice, event):
         prev = choice_history[i-1]["choice_name"]
         curr = choice_history[i]["choice_name"]
         if prev == "study" and curr == "study":
-        streak += 5
+            streak += 5
         if prev == "party" and curr == "study":
             score -= 10
     score += streak
@@ -150,7 +188,7 @@ def get_available_events(gpa, **resources):
     Returns:
         dict: A dictionary of eligible options and status 
     """
-
+    
     events = {
         "National Honors Society": {"min_gpa": 3.5, "cost": 0},
         "Coding Club": {"min_gpa": 3.0, "cost": 20},
@@ -158,8 +196,8 @@ def get_available_events(gpa, **resources):
         "Rest at Home": {"min_gpa": 0.0, "cost": 0},
         "Join the Football Team": {"min_gpa": 2.5, "cost": 50}
     }
-
-    event_pool = {*events.keys()}
+    
+    event_pool = events.keys()
 
     current_money = resources.get('money', 0)
     
@@ -168,6 +206,7 @@ def get_available_events(gpa, **resources):
         if gpa >= events[name]["min_gpa"] 
         and current_money >= events[name]["cost"]
     }
+    
     sorted_options = sorted(
         eligible_events, 
         key=lambda x: events[x]["min_gpa"], 
@@ -177,8 +216,9 @@ def get_available_events(gpa, **resources):
 top_choice = sorted_options[0] if sorted_options else "No events available"
 
 print(f"Outcome: {top_choice.upper()}")
-    
+
 return {
-        "player_options": sorted_options,
+     "player_options": sorted_options,
         "gpa_status": "Dean's List" if gpa >= 3.5 else "Good"
-    }
+}
+
