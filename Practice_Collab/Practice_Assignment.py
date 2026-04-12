@@ -155,26 +155,48 @@ def determine_outcome(resources, choice, event):
     else:
         return "You did not graduate and rethinking what comes next"
 
-
 def check_game_over(resources):
     """
-    Checks if the game should end based on the player's current status levels.
+    Checks if the game should end based on the player's status levels 
 
     The game ends if an important status, like GPA, health, money,
-    or emotions, falls below a required minimum value. This function
-    helps determine whether the player can continue playing or has lost.
+    or emotion, falls below a required minimum value.
 
     Args:
         resources (dict[str, int | float]): A dictionary containing the
-            player's current values for GPA, health, money, and emotions.
+            player's current values:
+            {
+                "GPA": float (0.0–4.0),
+                "money": int,
+                "health": int (0–100),
+                "emotion": int (0–100)
+            }
 
     Returns:
         bool: True if the game is over, False if the player can continue.
-        
 
     Raises:
         ValueError: If required resource values are missing.
     """
+    required_keys = ["GPA", "money", "health", "emotion"]
+    
+    # check if all required keys exist
+    for key in required_keys:
+        if key not in resources:
+            raise ValueError("Missing resource: " + key)
+
+    # check game over conditions
+    for key, value in resources.items():
+        if key == "GPA" and value < 1.0:
+            return True
+        if key == "health" and value < 20:
+            return True
+        if key == "emotion" and value < 10:
+            return True
+        if key == "money" and value < 0:
+            return True
+
+    return False
 
 def get_available_events(gpa, **resources):
     """
