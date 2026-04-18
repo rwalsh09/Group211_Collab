@@ -244,3 +244,31 @@ return {
         "gpa_status": "Dean's List" if gpa >= 3.5 else "Good"
 }
 
+# keyword argument/ optional parser (Ruby Walsh)
+def display_resource_summary(resources, title=True):
+    """This will generate a summary of the player's current status bar
+    level. The title=True is a optional parameter that controls
+    if the header is printed.
+
+    Args:
+        resources (_type_): _description_
+        title (bool, optional): _description_. Defaults to True.
+    """
+    
+    if title:
+        print("Current Player Resources:")
+        
+    print(f"Health: {resources['health']}")
+    print(f"Money: {resources['money']}")
+    print(f"GPA: {resources['GPA']}")
+    print(f"Emotion: {resources['emotion']}")
+    
+# sorted() lambda (Ruby Walsh)
+def sort_events_by_impact(events):
+    """Sort events based on their overall impact on player's stats.
+    """
+    
+    def total_change(event):
+        return sum(abs(v) for v in event["choices"][1].values())
+    
+    return sorted(events, key=lambda e: total_change(e), reverse=True)
