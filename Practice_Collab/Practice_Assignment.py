@@ -1,3 +1,16 @@
+# Ruby
+def starting_screen():
+    """Generates a welcome screen for the user.
+    """
+    print("Welcome To College Life")
+    print("1. Start Game")
+    print("2. Instructions")
+    print("3. Quit")
+    
+    choice = input("Choose an option: ")
+    return choice
+
+# Ruby
 def status_changes(resources, event, choice):
     """ Update the health, money, GPA, and emotion bar to either decrease
     depending on the user's choice during an event given. Each choice will
@@ -51,7 +64,14 @@ def status_changes(resources, event, choice):
                         pass
     return resources
 
+# Ruby
 def get_choices():
+    """This will show the two choices the user can pck from.
+
+    Returns:
+        list: List displays the choices the user can pick for the outcome of the
+        event.
+    """
     return [
         {
             "description": "You have a big exam tomorrow.",
@@ -71,11 +91,11 @@ def get_choices():
             "choices": {
                 1: {
                     "text":"I'm so happy I was hired at Raise N' Canes!",
-                    "effects":{"money": +40, "health": -10, "emotion": -5}
+             "effects":{"money": +40, "health": -10, "emotion": +6, "GPA": -.5}
                 },
                 2: {
                     "text": "I don't have time for part-time. I'll just wait.",
-                    "effects":{"money": 0, "health": +10, "emotion": +10}
+                "effects":{"money": 0, "health": +10, "emotion": +1,"GPA": +.3}
                 } 
             }
         },
@@ -85,7 +105,7 @@ def get_choices():
                 "choices": {
                     1: {
                         "text":"I'll join the club, why a fee though?",
-                        "effects":{"money": - 20, "emotion": +15, "GPA": +0.4},
+        "effects":{"money": - 20, "emotion": +15, "GPA": +0.4, "health": -1},
                     },
                     2: {
                         "text": "I don't really need to join a club.",
@@ -304,41 +324,54 @@ def sort_events_by_impact(events):
     
     return sorted(events, key=lambda e: total_change(e), reverse=True)
 
-
-if __name__ == "__main__":
-    
+def play_game():
     resources = {
-    "health": 100,
-    "money": 100,
-    "GPA": 4.0,
-    "emotion": 100
-}
-
-
+            "health": 100,
+            "money": 100,
+            "GPA": 4.0,
+            "emotion": 100
+        }
     choice_history = []
     
-    events= get_choices()
+    events = get_choices()
     
     for event in events:
-        print("\nEvent:", event ["description"])
-        print("1:", event["choices"][1]["text"])
-        print("2:",event["choices"][2]["text"])
-        
-        choice = int(input("Choose 1 or 2: "))
-        
-        if choice == 1:
-            choice_history.append({"choice_name": "study"})
-        else:
-            choice_history.append({"choice_name": "party"})
+            print("\nEvent:", event["description"])
+            print("1:", event["choices"][1]["text"])
+            print("2:", event["choices"][2]["text"])
             
-        resources = status_changes(resources, event, choice)
+            choice = int(input("Choose 1 or 2: "))
+            
+            if choice == 1:
+                choice_history.append({"choice_name": "study"})
+            else:
+                choice_history.append({"choice_name": "party"})
+                
+            resources = status_changes(resources, event, choice)
+            
+            display_resource_summary(resources)
+            
+            if check_game_over(resources):
+                print("\nGame Over! Your stats dropped too low.")
+                break
         
-        display_resource_summary(resources)
+            print("Final Outcome: ")
+            ending = determine_outcome(resources, choice_history)
+            print(ending)
+# Ruby
+if __name__ == "__main__":
+    user_choice = starting_screen()
+    
+    if user_choice == "1":
+        play_game()
         
-        if check_game_over(resources):
-            print("\nGame Over! Your stats dropped too low.")
-            break
-        
-    print("Final Outcome: ")
-    ending = determine_outcome(resources, choice_history)
-    print(ending)
+    elif user_choice == "2":
+        print("\nInstructions:")
+        print("Play through the lens of a college student.")
+        print("Make choices that affect your GPA, money, health, and emotions.")
+        print("Good Luck!")
+        play_game()
+    
+    elif user_choice == "3":
+        print("Play Again Soon!")
+        exit()
