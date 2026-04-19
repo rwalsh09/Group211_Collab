@@ -1,4 +1,4 @@
-def status_changes(resources, events, choice):
+def status_changes(resources, event, choice):
     """ Update the health, money, GPA, and emotion bar to either decrease
     depending on the user's choice during an event given. Each choice will
     lead to different outcomes which will have specific effects that change
@@ -23,87 +23,120 @@ def status_changes(resources, events, choice):
     Side Effects:
         Update the status value in the resources dictionary. 
     """
-    events = [
+    #for event in events:
+    if choice in event["choices"]:
+            
+            changes = event["choices"][choice]["effects"]
+            
+            # change each status bar
+            for key in resources:        
+                # update status bar if event affects it
+                if key in changes:
+                    resources[key] += changes[key]
+                    
+                if key == "GPA":
+                    if resources[key] < 0.0:
+                        resources[key] = 0.0
+                    if resources[key] > 4.0:
+                        resources[key] = 4.0
+                        
+                elif key in ["health", "emotion"]:
+                    if resources[key] < 0:
+                        resources[key] = 0
+                    if resources[key] > 100:
+                        resources[key] = 100
+                        
+                        # money bar has no limit because get that money
+                    else:
+                        pass
+    return resources
+
+def get_choices():
+    return [
         {
             "description": "You have a big exam tomorrow.",
             "choices": {
-                1: {"health": - 10, "emotion": -8, "GPA": + 1.5},
-                2: {"health": + 5, "emotion": + 4, "GPA": - 1}
+                1: {
+                    "text":"I'll just stay in and study! I need to pass.",
+                    "effects":{"health": - 10, "emotion": -8, "GPA": + 1.5}
+                },
+                2: {
+                    "text":"My friend asked me to hangout... I should be good.",
+            "effects":{"money": -18, "health": + 5, "emotion": + 4, "GPA": - 1}
+                }
             }
         },
         
            { "description": "Part-Time Job",
             "choices": {
-                1: {"money": +30, "health": -10, "emotion": -5},
-                2: {"money": 0, "health": +10, "emotion": +10} 
+                1: {
+                    "text":"I'm so happy I was hired at Raise N' Canes!",
+                    "effects":{"money": +40, "health": -10, "emotion": -5}
+                },
+                2: {
+                    "text": "I don't have time for part-time. I'll just wait.",
+                    "effects":{"money": 0, "health": +10, "emotion": +10}
+                } 
             }
         },
             
             {
                 "description": "Join the Coding Club",
                 "choices": {
-                    1: {"money": - 20, "emotion": +15, "GPA": +0.4},
-                    2: {"money": +15, "emotion": +10, "GPA": +.5, "health": -10}
+                    1: {
+                        "text":"I'll join the club, why a fee though?",
+                        "effects":{"money": - 20, "emotion": +15, "GPA": +0.4},
+                    },
+                    2: {
+                        "text": "I don't really need to join a club.",
+                        "effects":{"money":0, "emotion": +10, "GPA":-.3}
+                    }
                 }
-        },
+            },
             {
                 "description": "National Honors Society",
                 "choices":{
-                    1: {"money": - 30, "emotion": +15, "GPA": +1},
-                    2: {"money": -30, "emotion": +10, "GPA": +1, "health": -18}
+                    1: {
+                        "text":"This would look great on my resume.",
+                        "effects":{"money": - 30, "emotion": +15, "GPA": +1}
+                    },
+                    2: {
+                       "text":"I'll pass, I don't need this for my resume.",
+             "effects": {"money": -30, "emotion": +10, "GPA": +1, "health": -18}
+                    }
                 }
-        },
+            },
             {
                 "description": "Rest at Home",
                 "choices":{
-                    1: {"money": - 15, "emotion": +25, "health": +20},
-                    2: {"money": 0, "emotion": +10, "health": -18}
+                    1: {
+                    "text":"My friend asked me to go out, why not it's Friday.",
+                        "effects":{"money": - 15, "emotion": +12, "health": +20}
+                    },
+                    2: {
+                        "text":"I need to save money, I'll just stay in.",
+                        "effects":{"money": 0, "emotion": +10, "health": -18}
+                    }
                 }
         },
             {
                 "description": "Join the Football Team",
                 "choices":{
-                 1: {"money": - 40, "emotion": +8, "health": -25, "GPA": -1},
-                 2: {"emotion": +10, "health": +10, "emotion": -12, "GPA": +.05}
+                 1: {
+                 "text":"Wow, I can't believe I made it trough try outs!",    
+            "effects":{"money": - 40, "emotion": +8, "health": -25, "GPA": -1}  
+                },
+                 2: {
+                "text":"I don't want to get injured, I'll join another sport.",     
+                "effects":{"health": +10, "emotion": +10}
+                 }
             }
             
         }  
     ]
-    
-    resources = {
-        "health": 100,
-        "money": 100,
-        "GPA": 4.0,
-        "emotion": 100
-    }
-    
-    for event in events:
-        if choice == event["choice"]:
-            
-            changes = event["choices"][choice]
-            
-            # change each status bar
-            for key in resources:
-                
-                # update status bar if event affects it
-                if key in changes:
-                    resources[key] += changes[key]
-                if key == "GPA":
-                    if resources[key] < 0.0:
-                        resources[key] = 0.0
-                    if resources[key] > 4.0:
-                        resources[key] = 4.0
-                else:
-                
-                    if resources[key] < 0:
-                        resources[key] = 0
-                    if resources[key] > 100:
-                        resources[key] = 100
-    return resources
 
-
-
-def determine_outcome(resources, choice, event): 
+# def determine_outcome(resources, choice, event): 
+def determine_outcome(resources, choice_history): 
     """Determine the final ending text based on the user's final resource levels
     and the last major choice made.
 
@@ -134,10 +167,12 @@ def determine_outcome(resources, choice, event):
     for i in range(1, len(choice_history)):
         prev = choice_history[i-1]["choice_name"]
         curr = choice_history[i]["choice_name"]
+        
         if prev == "study" and curr == "study":
             streak += 5
         if prev == "party" and curr == "study":
             score -= 10
+            
     score += streak
 
     # Round and print final score
@@ -235,24 +270,20 @@ def get_available_events(gpa, **resources):
         reverse=True
     )
 
-top_choice = sorted_options[0] if sorted_options else "No events available"
+    top_choice = sorted_options[0] if sorted_options else "No events available"
 
-print(f"Outcome: {top_choice.upper()}")
+    print(f"Outcome: {top_choice.upper()}")
 
-return {
-     "player_options": sorted_options,
-        "gpa_status": "Dean's List" if gpa >= 3.5 else "Good"
-}
+    return {
+        "player_options": sorted_options,
+            "gpa_status": "Dean's List" if gpa >= 3.5 else "Good"
+    }
 
 # keyword argument/ optional parser (Ruby Walsh)
 def display_resource_summary(resources, title=True):
     """This will generate a summary of the player's current status bar
     level. The title=True is a optional parameter that controls
     if the header is printed.
-
-    Args:
-        resources (_type_): _description_
-        title (bool, optional): _description_. Defaults to True.
     """
     
     if title:
@@ -272,3 +303,42 @@ def sort_events_by_impact(events):
         return sum(abs(v) for v in event["choices"][1].values())
     
     return sorted(events, key=lambda e: total_change(e), reverse=True)
+
+
+if __name__ == "__main__":
+    
+    resources = {
+    "health": 100,
+    "money": 100,
+    "GPA": 4.0,
+    "emotion": 100
+}
+
+
+    choice_history = []
+    
+    events= get_choices()
+    
+    for event in events:
+        print("\nEvent:", event ["description"])
+        print("1:", event["choices"][1]["text"])
+        print("2:",event["choices"][2]["text"])
+        
+        choice = int(input("Choose 1 or 2: "))
+        
+        if choice == 1:
+            choice_history.append({"choice_name": "study"})
+        else:
+            choice_history.append({"choice_name": "party"})
+            
+        resources = status_changes(resources, event, choice)
+        
+        display_resource_summary(resources)
+        
+        if check_game_over(resources):
+            print("\nGame Over! Your stats dropped too low.")
+            break
+        
+    print("Final Outcome: ")
+    ending = determine_outcome(resources, choice_history)
+    print(ending)
