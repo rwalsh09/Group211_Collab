@@ -355,9 +355,9 @@ def play_game():
                 print("\nGame Over! Your stats dropped too low.")
                 break
         
-            print("Final Outcome: ")
-            ending = determine_outcome(resources, choice_history)
-            print(ending)
+    print("Final Outcome: ")
+    ending = determine_outcome(resources, choice_history)
+    print(ending)
 # Ruby
 if __name__ == "__main__":
     user_choice = starting_screen()
