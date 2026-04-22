@@ -324,6 +324,7 @@ def sort_events_by_impact(events):
     
     return sorted(events, key=lambda e: total_change(e), reverse=True)
 
+# Ruby
 def play_game():
     resources = {
             "health": 100,
