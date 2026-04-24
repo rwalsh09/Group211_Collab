@@ -2,13 +2,18 @@
 def starting_screen():
     """Generates a welcome screen for the user.
     """
-    print("Welcome To College Life")
-    print("1. Start Game")
-    print("2. Instructions")
-    print("3. Quit")
-    
-    choice = input("Choose an option: ")
-    return choice
+    while True:
+        print("Welcome To College Life")
+        print("1. Start Game")
+        print("2. Instructions")
+        print("3. Quit")
+        
+        choice = input("Choose an option: ")
+        
+        if choice in ("1", "2", "3"):
+            return choice
+        else:
+            print("You must enter 1, 2, or 3!\n")
 
 # Ruby
 def status_changes(resources, event, choice):
@@ -339,10 +344,23 @@ def sort_events_by_impact(events):
     """
     
     def total_change(event):
-        return sum(abs(v) for v in event["choices"][1].values())
+        return sum(abs(v) for v in event["choices"][1]["effects"].values())
     
     return sorted(events, key=lambda e: total_change(e), reverse=True)
 
+#Ruby
+
+def get_valid_event_choice():
+    """If the user types anything but 1 or 2 for the choices, results in error.
+    """
+    while True:
+        choice = input("Choose 1 or 2: ")
+        
+        if choice in ("1", "2"):
+            return int(choice)
+        else:
+            print("Invalid choice. Please enter 1 or 2.")
+            
 # Ruby
 def play_game():
     resources = {
@@ -360,7 +378,7 @@ def play_game():
             print("1:", event["choices"][1]["text"])
             print("2:", event["choices"][2]["text"])
             
-            choice = int(input("Choose 1 or 2: "))
+            choice = get_valid_event_choice()
             
             if choice == 1:
                 choice_history.append({"choice_name": "study"})
@@ -378,20 +396,27 @@ def play_game():
     print("Final Outcome: ")
     ending = determine_outcome(resources, choice_history)
     print(ending)
+
+
 # Ruby
 if __name__ == "__main__":
-    user_choice = starting_screen()
     
-    if user_choice == "1":
-        play_game()
+    while True:
+        user_choice = starting_screen()
         
-    elif user_choice == "2":
-        print("\nInstructions:")
-        print("Play through the lens of a college student.")
-        print("Make choices that affect your GPA, money, health, and emotions.")
-        print("Good Luck!")
-        play_game()
-    
-    elif user_choice == "3":
-        print("Play Again Soon!")
-        exit()
+        if user_choice == "1":
+            play_game()
+            
+        elif user_choice == "2":
+            print("\nInstructions:")
+            print("Play through the lens of a college student.")
+            print("Make choices that affect your GPA, money, health, and emotions.")
+            print("Good Luck!")
+            play_game()
+        
+        elif user_choice == "3":
+            print("Play Again Soon!")
+            exit()
+        
+        elif user_choice not in ("1", "2", "3"):
+            print("You must enter 1, 2 or 3!")
