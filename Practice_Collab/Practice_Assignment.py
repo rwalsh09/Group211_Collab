@@ -160,7 +160,7 @@ def get_choices():
         }  
     ]
 
-#Junxi -> count_choice && determine_outcome
+#Junxi
 def count_choice(choice_history, choice_name):
     """Return count of a specific choice type using a list comprehension
     Returns:
@@ -169,7 +169,8 @@ def count_choice(choice_history, choice_name):
     
     return len([choice for choice in choice_history if choice[
         "choice_name"] == choice_name])
-
+    
+#Junxi
 # def determine_outcome(resources, choice, event): 
 def determine_outcome(resources, choice_history): 
     """Determine the final ending text based on the user's final resource levels
