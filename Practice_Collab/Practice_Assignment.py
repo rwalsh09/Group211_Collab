@@ -148,7 +148,7 @@ def get_choices():
                 "description": "Join the Football Team",
                 "choices":{
                  1: {
-                 "text":"Wow, I can't believe I made it trough try outs!",    
+                 "text":"Wow, I can't believe I made it through try outs!",    
             "effects":{"money": - 40, "emotion": +8, "health": -25, "GPA": -1}  
                 },
                  2: {
@@ -226,13 +226,13 @@ def determine_outcome(resources, choice_history):
     # Determine ending based on score
     
     if rounded_score >= 80:
-        return "You have graduated and ready for what comes moving forward."
+        return "\nYou have graduated and ready for what comes moving forward."
     elif rounded_score >= 60:
-        return "You have graduated but working hard for what comes next"
+        return "\n You have graduated but working hard for what comes next"
     elif rounded_score >= 40:
-        return "You have barely graduated and with challenges moving forward"
+        return "\n You have barely graduated and with challenges moving forward"
     else:
-        return "You did not graduate and rethinking what comes next"
+        return "\n You did not graduate and rethinking what comes next"
 
 def check_game_over(resources):
     """
@@ -316,7 +316,7 @@ def get_available_events(gpa, **resources):
 
     top_choice = sorted_options[0] if sorted_options else "No events available"
 
-    print(f"Outcome: {top_choice.upper()}")
+    print(f"\nOutcome: {top_choice.upper()}")
 
     return {
         "player_options": sorted_options,
@@ -331,7 +331,8 @@ def display_resource_summary(resources, title=True):
     """
     
     if title:
-        print("Current Player Resources:")
+        print("\n")
+        print("Resources:")
         
     print(f"Health: {resources['health']}")
     print(f"Money: {resources['money']}")
@@ -411,6 +412,7 @@ if __name__ == "__main__":
             print("\nInstructions:")
             print("Play through the lens of a college student.")
             print("Make choices that affect your GPA, money, health, and emotions.")
+            print("Select choice by selecting 1 or 2.")
             print("Good Luck!")
             play_game()
         
@@ -419,4 +421,4 @@ if __name__ == "__main__":
             exit()
         
         elif user_choice not in ("1", "2", "3"):
-            print("You must enter 1, 2 or 3!")
+            print("\nYou must enter 1, 2 or 3!")
