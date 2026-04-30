@@ -171,7 +171,6 @@ def count_choice(choice_history, choice_name):
         "choice_name"] == choice_name])
     
 #Junxi
-# def determine_outcome(resources, choice, event): 
 def determine_outcome(resources, choice_history): 
     """Determine the final ending text based on the user's final resource levels
     and the last major choice made.
