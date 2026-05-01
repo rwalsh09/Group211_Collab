@@ -237,6 +237,7 @@ def determine_outcome(resources, choice_history):
     else:
         return "\n You did not graduate and rethinking what comes next"
 
+# Duru Gokcen
 def check_game_over(resources):
     """
     Checks if the game should end based on the player's status levels 
@@ -279,6 +280,24 @@ def check_game_over(resources):
             return True
 
     return False
+
+# Duru Gokcen- f-strings, sequence unpacking
+
+def print_status(resources):
+    """
+    Prints the player's current GPA, money, health, and emotion levels.
+
+    Args:
+        resources (dict[str, int | float]): Player stats.
+
+    Returns:
+        None
+    """
+
+    # sequence unpacking
+    for key, value in resources.items():
+        # f-strings
+        print(f"{key}: {value}")
 
 def get_available_events(gpa, **resources):
     """
