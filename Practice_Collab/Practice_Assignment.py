@@ -161,14 +161,16 @@ def get_choices():
     ]
 
 #Junxi
-def count_choice(choice_history, choice_name):
-    """Return count of a specific choice type using a list comprehension
-    Returns:
-        int: Number of times that choice will appear in the history
+def count_choice(choice_history):
+    """Counts events of each choice type in the history.
     """
+    #comprehensions
+    choice_types = {"study", "party"} 
+    return {
+        choice: len([c for c in choice_history if c["choice_name"] == choice])
+        for choice in choice_types
+    }
     
-    return len([choice for choice in choice_history if choice[
-        "choice_name"] == choice_name])
     
 #Junxi
 def determine_outcome(resources, choice_history): 
@@ -193,7 +195,8 @@ def determine_outcome(resources, choice_history):
             and extremely stressed."
     """
     #List Comprehension: Create a list of only study choices
-    study_count = count_choice(choice_history, "study")
+    counts = count_choice(choice_history)
+    study_count = counts["study"]    
     
     #Conditional Expression: Gives bonus if number of study sessions is >3
     bonus = 3 if study_count > 2 else 0
