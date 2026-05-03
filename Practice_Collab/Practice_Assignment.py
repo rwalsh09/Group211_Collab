@@ -302,15 +302,17 @@ def print_status(resources):
 # Adonis Hodges
 def get_available_events(gpa, **resources):
     """
-    Checks what possible events the player can do based on game performance.
-    Filters possible game events based on requirements.
-    
+    Checks what possible events the player can do based on in game performance.
+    Compares players GPA and money against events sorted by player eligiblity and
+    sorts the result to find the highest ranking option availible.
+
     Args:
-        gpa (float): The current GPA (0.0 - 4.0).
-        **resources: Keyword arguments like money=100 or health=80.
+        gpa (float): The players currect GPA (0.0-4.0).
+        **resources: Represents players assets such as money.
 
     Returns:
-        dict: A dictionary of eligible options and status 
+        dict: A summary of the availble options based on the eligibility
+        sorted in decending order based on requirements.
     """
     
     events = {
@@ -321,33 +323,35 @@ def get_available_events(gpa, **resources):
         "Join the Football Team": {"min_gpa": 2.5, "cost": 50}
     }
     
-    event_pool = events.keys()
-
+    #set operations (intersection)
+    featured_events = {"Coding Club", "Join the Football Team", "Yoga Class"}
+    available_events = set(events.keys()) & featured_events
+    
     current_money = resources.get('money', 0)
 
-    #set comprehension 
+    #sequence unpacking
     eligible_events = {
-        name for name in event_pool 
+        name for name in available_events
         if gpa >= events[name]["min_gpa"] 
         and current_money >= events[name]["cost"]
     }
 
-    #lambda sorted expression
+    #lambda sorting 
     sorted_options = sorted(
         eligible_events, 
         key=lambda x: events[x]["min_gpa"], 
         reverse=True
     )
 
-    #conditional expression
+    #conditional
     top_choice = sorted_options[0] if sorted_options else "No events available"
 
-    # f-strings
+    #f-string
     print(f"\nOutcome: {top_choice.upper()}")
 
     return {
         "player_options": sorted_options,
-            "gpa_status": "Dean's List" if gpa >= 3.5 else "Good"
+        "gpa_status": "Dean's List" if gpa >= 3.5 else "Good"
     }
 
 # keyword argument/ optional parser (Ruby Walsh)
