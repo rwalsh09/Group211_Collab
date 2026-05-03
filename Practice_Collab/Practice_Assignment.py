@@ -300,19 +300,20 @@ def print_status(resources):
         print(f"{key}: {value}")
 
 # Adonis Hodges
+import re
+
 def get_available_events(gpa, **resources):
     """
-    Checks what possible events the player can do based on in game performance.
-    Compares players GPA and money against events sorted by player eligiblity and
-    sorts the result to find the highest ranking option availible.
+    Filters and ranks game events based on players current assets such as
+    GPA and money. Can be used to search for team based or group centered clubs
+    and activities.
 
     Args:
-        gpa (float): The players currect GPA (0.0-4.0).
-        **resources: Represents players assets such as money.
+        gpa (float): The player's current Grade Point Average (0.0 to 4.0 scale).
+        **resources: Keyword arguments such as money.
 
     Returns:
-        dict: A summary of the availble options based on the eligibility
-        sorted in decending order based on requirements.
+        dict: A dictionary of eligible options and status.
     """
     
     events = {
@@ -323,27 +324,34 @@ def get_available_events(gpa, **resources):
         "Join the Football Team": {"min_gpa": 2.5, "cost": 50}
     }
     
-    #set operations (intersection)
-    featured_events = {"Coding Club", "Join the Football Team", "Yoga Class"}
+    #set operation (intersection)
+    featured_events = {"Coding Club", "Join the Football Team", "National Honors Society"}
     available_events = set(events.keys()) & featured_events
+    
+    #regular expressions (Team based)
+    regex_pattern = r"Club|Society|Team"
+    filtered_by_regex = {
+        name for name in available_events 
+        if re.search(regex_pattern, name)
+    }
     
     current_money = resources.get('money', 0)
 
-    #sequence unpacking
+    #set comprehension
     eligible_events = {
-        name for name in available_events
+        name for name in filtered_by_regex
         if gpa >= events[name]["min_gpa"] 
         and current_money >= events[name]["cost"]
     }
 
-    #lambda sorting 
+    #lambda sorted()
     sorted_options = sorted(
         eligible_events, 
         key=lambda x: events[x]["min_gpa"], 
         reverse=True
     )
 
-    #conditional
+    #conditional statement
     top_choice = sorted_options[0] if sorted_options else "No events available"
 
     #f-string
@@ -353,7 +361,7 @@ def get_available_events(gpa, **resources):
         "player_options": sorted_options,
         "gpa_status": "Dean's List" if gpa >= 3.5 else "Good"
     }
-
+    
 # keyword argument/ optional parser (Ruby Walsh)
 def display_resource_summary(resources, title=True):
     """This will generate a summary of the player's current status bar
