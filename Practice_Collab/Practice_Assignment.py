@@ -351,7 +351,7 @@ def get_available_events(gpa, **resources):
         reverse=True
     )
 
-    #conditional statement
+    #conditional expression
     top_choice = sorted_options[0] if sorted_options else "No events available"
 
     #f-string
