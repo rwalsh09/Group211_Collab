@@ -299,6 +299,7 @@ def print_status(resources):
         # f-strings
         print(f"{key}: {value}")
 
+# Adonis Hodges
 def get_available_events(gpa, **resources):
     """
     Checks what possible events the player can do based on game performance.
@@ -323,21 +324,25 @@ def get_available_events(gpa, **resources):
     event_pool = events.keys()
 
     current_money = resources.get('money', 0)
-    
+
+    #set comprehension 
     eligible_events = {
         name for name in event_pool 
         if gpa >= events[name]["min_gpa"] 
         and current_money >= events[name]["cost"]
     }
-    
+
+    #lambda sorted expression
     sorted_options = sorted(
         eligible_events, 
         key=lambda x: events[x]["min_gpa"], 
         reverse=True
     )
 
+    #conditional expression
     top_choice = sorted_options[0] if sorted_options else "No events available"
 
+    # f-strings
     print(f"\nOutcome: {top_choice.upper()}")
 
     return {
