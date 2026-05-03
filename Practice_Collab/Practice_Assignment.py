@@ -361,7 +361,37 @@ def get_available_events(gpa, **resources):
         "player_options": sorted_options,
         "gpa_status": "Dean's List" if gpa >= 3.5 else "Good"
     }
-    
+
+def display_results(results):
+    """
+    Prints the player's available event options and their academic status.
+
+    Args:
+    results (dict): A dictionary containing player_options (list) 
+    and gpa_status (str).
+
+    Returns:
+    None
+    """
+    options = results.get("player_options", [])
+    status = results.get("gpa_status", "Standard")
+
+    print("--- AVAILABLE OPPORTUNITIES ---")
+   
+  
+    if not options:
+        print("No matches found. Try focusing on your studies instead of parties!")
+    #f-string
+    else:
+        for activity in options:
+            print(f"- {activity}")
+
+#conditonal statement
+    if status == "Dean's List":
+        print(f"\nKeep going! You're currently on {status}, don't mess it up!")
+    else:
+        print(f"\nStatus: {status}")
+        
 # keyword argument/ optional parser (Ruby Walsh)
 def display_resource_summary(resources, title=True):
     """This will generate a summary of the player's current status bar
