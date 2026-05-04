@@ -1,0 +1,19 @@
+{
+  "starting_resources": {
+    "health": 100,
+    "money": 100,
+    "GPA": 4.0,
+    "emotion": 100
+  },
+  "game_over_thresholds": {
+    "GPA": 1.0,
+    "health": 20,
+    "emotion": 10,
+    "money": 0
+  },
+  "ending_thresholds": {
+    "excellent": 80,
+    "good": 60,
+    "barely": 40
+  }
+}

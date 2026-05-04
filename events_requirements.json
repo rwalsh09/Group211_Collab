@@ -1,0 +1,27 @@
+{
+  "National Honors Society": {
+    "min_gpa": 3.5,
+    "cost": 0,
+    "tags": ["Society", "Academic"]
+  },
+  "Coding Club": {
+    "min_gpa": 3.0,
+    "cost": 20,
+    "tags": ["Club", "Coding"]
+  },
+  "Part-Time Job": {
+    "min_gpa": 2.0,
+    "cost": 0,
+    "tags": ["Work"]
+  },
+  "Rest at Home": {
+    "min_gpa": 0.0,
+    "cost": 0,
+    "tags": ["Rest"]
+  },
+  "Join the Football Team": {
+    "min_gpa": 2.5,
+    "cost": 50,
+    "tags": ["Team", "Sports"]
+  }
+}
