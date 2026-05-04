@@ -437,6 +437,64 @@ def get_valid_event_choice():
             return int(choice)
         else:
             print("Invalid choice. Please enter 1 or 2.")
+
+def choose_stat_boost(resources):
+    """Boosts the player attributes with available events based on their current 
+    GPA and money.
+    The user picks an event from the list and receives a stat boost based on
+    chosen event.
+
+    Args:
+        resources (dict): The player's current stats.
+
+    Returns:
+        dict: The updated resources after applying the chosen boost.
+    """
+
+    event_boosts = {
+        "Campus Clean Up Team": {"description": "Campus Clean Up Team (+EMO,+HP,+GPA)","effects": {"emotion": 20, "health": 5, "GPA":0.2}},
+        "Coding Club":          {"description": "Coding Club (+GPA,+EMO)","effects": {"GPA": 0.4, "emotion": 15}},
+        "ColorStack Society":   {"description": "ColorStack Society (+GPA,+EMO)","effects": {"GPA": 0.5, "emotion": 20}},
+        "Anime Club":           {"description": "Anime Club (+EMO,+GPA)", "effects": {"emotion": 20, "GPA": 0.1}},
+        "Cycling Class":        {"description": "Cycling Class (+HP,+EMO)","effects": {"health": 25, "emotion": 15}},
+        "Yoga Class":           {"description": "Yoga Class (+HP, +EMO)","effects": {"health": 30, "emotion": 20}},
+        "Art Show":             {"description": "Art Show (+EMO, +GPA)","effects": {"emotion": 20, "GPA": 0.1}},
+        "Looneys Night":        {"description": "Looneys Night (+EMO,-HP,-GPA)", "effects": {"emotion": 50, "health": -15, "GPA":-0.2}},
+        "Game Night":           {"description": "Game Night (+EMO,-HP)","effects": {"emotion": 45, "health": -25}},
+    }
+
+    results = get_available_events(resources["GPA"], money=resources["money"])
+    available = results["player_options"]
+
+    if not available:
+        print("\n No events available. Keep your GPA and money up!")
+        return resources
+
+    print("\n Pick an event to attend and change your stats!:")
+    count = 1
+    for name in available:
+        boost = event_boosts.get(name)
+        if boost:
+            print(f"  {count}. {boost['description']}")
+            count += 1
+
+    while True:
+        choice = input(f"Choose from 1-{len(available)}: ").strip()
+        if choice.isdigit() and 1 <= int(choice) <= len(available):
+            chosen_name = available[int(choice) - 1]
+            effects = event_boosts[chosen_name]["effects"]
+
+            for stat, value in effects.items():
+                resources[stat] = resources.get(stat, 0) + value
+                if stat == "GPA":
+                    resources[stat] = min(4.0, max(0.0, resources[stat]))
+                elif stat in ("health", "emotion"):
+                    resources[stat] = min(100, max(0, resources[stat]))
+
+            print(f"\nYou chose: {chosen_name}! Your stats are updated.")
+            return resources
+        else:
+            print(f"Nope! Gotta pick between 1 and {len(available)}.")
             
 # Ruby
 def play_game():
@@ -465,7 +523,9 @@ def play_game():
             resources = status_changes(resources, event, choice)
             
             display_resource_summary(resources)
-            
+
+            resources = choose_stat_boost(resources)
+        
             if check_game_over(resources):
                 print("\nGame Over! Your stats dropped too low.")
                 break
