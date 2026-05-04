@@ -229,13 +229,13 @@ def determine_outcome(resources, choice_history):
     # Determine ending based on score
     
     if rounded_score >= 80:
-        return "\nYou have graduated and ready for what comes moving forward."
+        return "\nYou have graduated and ready for what comes moving forward.\n"
     elif rounded_score >= 60:
-        return "\n You have graduated but working hard for what comes next"
+        return "\n You have graduated but working hard for what comes next\n"
     elif rounded_score >= 40:
-        return "\n You have barely graduated and with challenges moving forward"
+        return "\n You have barely graduated and with challenges moving forward\n"
     else:
-        return "\n You did not graduate and rethinking what comes next"
+        return "\n You did not graduate and rethinking what comes next\n"
 
 # Duru Gokcen
 def check_game_over(resources):
@@ -463,7 +463,7 @@ def play_game():
                 print("\nGame Over! Your stats dropped too low.")
                 break
         
-    print("Final Outcome: ")
+    print("\nFinal Outcome: ")
     ending = determine_outcome(resources, choice_history)
     print(ending)
 
@@ -486,7 +486,7 @@ if __name__ == "__main__":
             play_game()
         
         elif user_choice == "3":
-            print("Play Again Soon!")
+            print("\nPlay Again Soon!")
             exit()
         
         elif user_choice not in ("1", "2", "3"):
