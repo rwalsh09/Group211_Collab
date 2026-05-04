@@ -317,19 +317,26 @@ def get_available_events(gpa, **resources):
     """
     
     events = {
-        "National Honors Society": {"min_gpa": 3.5, "cost": 0},
+        "Campus Clean Up Team": {"min_gpa": 3.5, "cost": 0},
         "Coding Club": {"min_gpa": 3.0, "cost": 20},
-        "Part-time Job": {"min_gpa": 2.0, "cost": 0},
-        "Rest at Home": {"min_gpa": 0.0, "cost": 0},
-        "Join the Football Team": {"min_gpa": 2.5, "cost": 50}
+        "ColorStack Society": {"min_gpa": 3.7, "cost": 0},
+        "Anime Club": {"min_gpa": 0.0, "cost": 75},
+        "Cycling Class": {"min_gpa": 2.5, "cost": 50},
+        "Yoga Class": {"min_gpa": 0.0, "cost": 150},
+        "Art Show": {"min_gpa": 1.5, "cost": 100},
+        "Looneys Night": {"min_gpa": 3.0, "cost": 20},
+        "Game Night": {"min_gpa": 3.2, "cost": 75},
     }
     
     #set operation (intersection)
-    featured_events = {"Coding Club", "Join the Football Team", "National Honors Society"}
+    featured_events = {"Coding Club", "Campus Clean Up Team", "Anime Club", 
+                       "ColorStack Society", "Cycling Class", "Yoga Class", "Art Show",
+                       "Looneys Night", "Game Night"
+                       }
     available_events = set(events.keys()) & featured_events
     
-    #regular expressions (Team based)
-    regex_pattern = r"Club|Society|Team"
+    #regular expressions
+    regex_pattern = r"Club|Society|Team|Show|Class|Night"
     filtered_by_regex = {
         name for name in available_events 
         if re.search(regex_pattern, name)
