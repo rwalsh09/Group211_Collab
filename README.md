@@ -3,9 +3,6 @@
 ## Overview
 The purpose of this game is to allow users to play as a college student to experience events that occur in college. This game is a decision base game where the choices you pick determines your outcome. The choices will effect the student's health, money, GPA, and well-being. In order to complete the game you must run through a couple of events and pick the choice of 1 or 2 in response of the event. Throughout the game you will get a summary of your resources. At the end you will be told if you graduated college or not as well as your score.
 
-- `CollegeLife.py` - runs the game and contains the main gameplay loop
-- `README.md` - project documentation
-
 ## How to Run
 
 ## Step 1: Download the files required for the project.
@@ -75,7 +72,7 @@ The goal of the game is to make balanced life decison choices by managing their 
 ```README.md``` - project docunmentation, usage instructions, and attributions.
 
 # Techniques and Attribution
-| display_resource_summary| Ruby Walsh | Optional Parameters/ keyword arguments |
+| display_resource_summary | Ruby Walsh | Optional Parameters/ keyword arguments |
 
 | sort_events_by_impact | Ruby Walsh | key function: sorted() , lambda expression |
 
