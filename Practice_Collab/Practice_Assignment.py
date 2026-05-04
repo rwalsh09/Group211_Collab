@@ -354,9 +354,6 @@ def get_available_events(gpa, **resources):
     #conditional expression
     top_choice = sorted_options[0] if sorted_options else "No events available"
 
-    #f-string
-    print(f"\nOutcome: {top_choice.upper()}")
-
     return {
         "player_options": sorted_options,
         "gpa_status": "Dean's List" if gpa >= 3.5 else "Good"
@@ -407,6 +404,9 @@ def display_resource_summary(resources, title=True):
     print(f"Money: {resources['money']}")
     print(f"GPA: {resources['GPA']}")
     print(f"Emotion: {resources['emotion']}")
+
+    results = get_available_events(resources["GPA"], money=resources["money"])
+    display_results(results)
     
 # sorted() lambda (Ruby Walsh)
 def sort_events_by_impact(events):
