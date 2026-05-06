@@ -1,0 +1,133 @@
+ [
+  {
+    "description": "You have a big exam tomorrow.",
+    "choices": {
+      "1": {
+        "text": "I'll just stay in and study! I need to pass.",
+        "effects": {
+          "health": -10,
+          "emotion": -8,
+          "GPA": 1.5
+        }
+      },
+      "2": {
+        "text": "My friend asked me to hangout... I should be good.",
+        "effects": {
+          "money": -18,
+          "health": 5,
+          "emotion": 4,
+          "GPA": -1
+        }
+      }
+    }
+  },
+  {
+    "description": "Part-Time Job",
+    "choices": {
+      "1": {
+        "text": "I'm so happy I was hired at Raise N' Canes!",
+        "effects": {
+          "money": 40,
+          "health": -10,
+          "emotion": 6,
+          "GPA": -0.5
+        }
+      },
+      "2": {
+        "text": "I don't have time for part-time. I'll just wait.",
+        "effects": {
+          "money": 0,
+          "health": 10,
+          "emotion": 1,
+          "GPA": 0.3
+        }
+      }
+    }
+  },
+  {
+    "description": "Join the Coding Club",
+    "choices": {
+      "1": {
+        "text": "I'll join the club, why a fee though?",
+        "effects": {
+          "money": -20,
+          "emotion": 15,
+          "GPA": 0.4,
+          "health": -1
+        }
+      },
+      "2": {
+        "text": "I don't really need to join a club.",
+        "effects": {
+          "money": 0,
+          "emotion": 10,
+          "GPA": -0.3
+        }
+      }
+    }
+  },
+  {
+    "description": "National Honors Society",
+    "choices": {
+      "1": {
+        "text": "This would look great on my resume.",
+        "effects": {
+          "money": -30,
+          "emotion": 15,
+          "GPA": 1
+        }
+      },
+      "2": {
+        "text": "I'll pass, I don't need this for my resume.",
+        "effects": {
+          "money": -30,
+          "emotion": 10,
+          "GPA": 1,
+          "health": -18
+        }
+      }
+    }
+  },
+  {
+    "description": "Rest at Home",
+    "choices": {
+      "1": {
+        "text": "My friend asked me to go out, why not it's Friday.",
+        "effects": {
+          "money": -15,
+          "emotion": 12,
+          "health": 20
+        }
+      },
+      "2": {
+        "text": "I need to save money, I'll just stay in.",
+        "effects": {
+          "money": 0,
+          "emotion": 10,
+          "health": -18
+        }
+      }
+    }
+  },
+  {
+    "description": "Join the Football Team",
+    "choices": {
+      "1": {
+        "text": "Wow, I can't believe I made it through try outs!",
+        "effects": {
+          "money": -40,
+          "emotion": 8,
+          "health": -25,
+          "GPA": -1
+        }
+      },
+      "2": {
+        "text": "I don't want to get injured, I'll join another sport.",
+        "effects": {
+          "health": 10,
+          "emotion": 10
+        }
+      }
+    }
+  }
+]
