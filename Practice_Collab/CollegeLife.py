@@ -15,6 +15,9 @@ def load_json(filename):
         FileNotFoundError: If the specified file does not exist.
         json.JSONDecodeError: If the file does not contain valid JSON.
         
+    Side Effects:
+        Reads a JSON file from disk.
+        
     Primary author: Ruby Walsh
     Technique claimed: JSON files.
     """
@@ -34,7 +37,6 @@ class CampusActivity:
         min_gpa (float): The minimum GPA required for the activity.
         cost (int or float): The cost of the activity. 
     
-    
     Primary author: Ruby Walsh
     Technique claimed: class.
     """
@@ -49,6 +51,9 @@ class CampusActivity:
         
         Returns:
             None
+            
+         Side Effects:
+            Intializes the instance attributes "name", "min_gpa", and "cost"
         """
         self.name = name
         self.min_gpa = min_gpa
@@ -84,6 +89,9 @@ class ClubActivity(CampusActivity):
         
         Returns:
             None
+            
+        Side Effects:
+            Intalizes inherited instance attributes and sets category. 
         """
         super().__init__(name, min_gpa, cost)
         self.category = category
@@ -109,9 +117,13 @@ def starting_screen():
     
     Returns:
         str: The user's validated menu selction as "1", "2", "or "3".
+        
+    Side Effects:
+        Prints menu text to standard output and reads user input from 
+        standard input.
     
-        Primary author: Ruby Walsh
-        Technique claimed: n/a for this function.
+    Primary author: Ruby Walsh
+    Technique claimed: n/a for this function.
     """
     while True:
         print("Welcome To College Life")
@@ -150,7 +162,8 @@ def status_changes(resources, event, choice):
         with a scale of (0-100).
         
     Side Effects:
-        Update the status value in the resources dictionary. 
+        Update the resources dictionary by updating health, GPA, and emotion
+        values. 
         
     Primary author: Ruby Walsh
     Technique claimed: n/a for this function, main algorithimic function.
@@ -193,9 +206,13 @@ def get_choices():
     Returns:
         list[dict]: List displays the choices the user can pick 
         for the outcome of the event.
+    
+    Side Effects:
+        Reads event data from disk and changes each event's choices dictionary
+        by converting its keys from strings to integers. 
         
     Primary author: Ruby Walsh
-     Technique claimed: n/a for this function.
+    Technique claimed: n/a for this function.
     """
 
     events = load_json("choices.json")
@@ -250,6 +267,10 @@ def determine_outcome(resources, choice_history):
         str: A text ending description that reflects the combined outcome of
             resources and choices. Example: "You graduated but are deeply in debt
             and extremely stressed."
+    
+    Side Effects:
+        Prints the final score to standard output and reads ending thresholds
+        from "game_config.json".
         
     Primary author: Junxi Chen
     Technique claimed: conditional expession and main aglorithimic function.
@@ -324,6 +345,9 @@ def check_game_over(resources):
     Raises:
         ValueError: If required resource values are missing.
         
+    Side Effects:
+        Reads game-over thresholds from "game_config.json".
+        
         Primary author: Duru Gokcen
         Technique claimed: n/a for this function, main algorithimic function.
     """
@@ -355,8 +379,11 @@ def print_status(resources):
     Returns:
         None
         
-        Primary author: Duru Gokcen
-        Technique claimed: f-strings, sequence unpacking
+    Side Effects:
+        Prints resource values to standard output.
+        
+    Primary author: Duru Gokcen
+    Technique claimed: f-strings, sequence unpacking
     """
 
     # sequence unpacking
@@ -377,6 +404,10 @@ def get_available_events(gpa, **resources):
 
     Returns:
         dict: A dictionary of eligible options and status.
+        
+    Side Effects:
+        Reads event requirements from disk and prints activity information
+        and outcome text to standard output.
         
     Primary author: Adonis Hodges
     Technique claimed: Set operations and regular expressions.
@@ -437,7 +468,10 @@ def display_results(results):
     and gpa_status (str).
 
     Returns:
-    None
+        None
+    
+    Side Effects:
+        Prints event options and acaedmic status to standard output.
     
     Primary author: Adonis Hodges
     Technique claimed: n/a for this function.
@@ -473,8 +507,14 @@ def display_resource_summary(resources, title=True):
         title (bool): If True, print a "Resources:" header before the summary.
             Defaults to True.
     
-        Primary author: Ruby Walsh
-        Technique claimed: keyword argument/ optional parser.
+    Returns:
+        None
+        
+    Side Effects:
+        Prints a formatted resource summary to standard output.
+    
+    Primary author: Ruby Walsh
+    Technique claimed: keyword argument/ optional parser.
     
     """
     
@@ -512,10 +552,14 @@ def get_valid_event_choice():
     """ If the user types anything but 1 or 2 for the choices, results in error.
     
     Returns:
-        int: The validated choice number of either 1 or 2.
+        int: The validated choice number of either "1" or "2".
         
-        Primary author: Ruby Walsh
-        Technique claimed: n/a for this function.
+    Side Effects:
+        Reads user input from standard input and prints validation messages
+        to standard output.
+    
+    Primary author: Ruby Walsh
+    Technique claimed: n/a for this function.
     """
     while True:
         choice = input("\nChoose 1 or 2: ")
@@ -535,9 +579,14 @@ def play_game():
     
     Returns:
         None
+    
+    Side Effects:
+        Reads configuration and event data from disk, prints the game progress
+        and outcome text to standard output, and prompts the user for input
+        through the helper functions. 
         
-        Primary author: Ruby Walsh
-        Technique claimed: n/a for this function.
+    Primary author: Ruby Walsh
+    Technique claimed: n/a for this function.
     """
     config = load_json("game_config.json")
     resources = dict(config["starting_resources"])
