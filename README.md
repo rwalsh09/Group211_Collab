@@ -99,3 +99,8 @@ Used to learn how to build file paths relative to the script location so the pro
 ## Ruby Walsh **Walking Through** (unpublished Processing project, UMBC, 2022)
 
 Used one of a group project I made in 2022 as reference for brainstorming the game structure, event flow, and decision-based interactions. The prior project helped inpsire the overall design and purpose of this test-based game.
+
+** Selecting from User Input
+https://tutorialreference.com/python/examples/faq/python-how-to-use-user-input-to-select-an-option-from-a-list
+Used to create the event choices that pop up after every round, and actually makes them selectable and increase scores.
+
