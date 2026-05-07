@@ -3,6 +3,13 @@
 ## Overview
 The purpose of this game is to allow users to play as a college student to experience events that occur in college. This game is a decision base game where the choices you pick determines your outcome. The choices will effect the student's health, money, GPA, and well-being. In order to complete the game you must run through a couple of events and pick the choice of 1 or 2 in response of the event. Throughout the game you will get a summary of your resources. At the end you will be told if you graduated college or not as well as your score.
 
+## File History Note
+
+`CollegeLife.py` was previously named `Practice_Assignment.py`.
+
+`Practice_Assignment.py` has been left in the repository unchanged so the
+file history remains easy to review.
+
 ## How to Run
 
 ## Step 1: Download the files required for the project.
