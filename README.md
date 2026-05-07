@@ -10,6 +10,8 @@ The purpose of this game is to allow users to play as a college student to exper
 `Practice_Assignment.py` has been left in the repository unchanged so the
 file history remains easy to review.
 
+`CollegeLife.py` is located in the `Practice_Collab` folder along with everything else. 
+
 ## How to Run
 
 ## Step 1: Download the files required for the project.
